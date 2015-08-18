@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private Movies mMovies;
+    private Movie mMovie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         String jsonData = response.body().string();
                         Log.v(TAG, jsonData);
+                        if (response.isSuccessful()) {
+                            mMovie = getMovieDetails(jsonData);
+                        } else {
+                            alertUserAboutError();
+                        }
+
                     } catch (IOException e) {
                         Log.e(TAG, "Exception caught: ", e);
                     }
@@ -66,6 +72,17 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    private void alertUserAboutError() {
+
+        AlertDialogFragment dialog = new AlertDialogFragment();
+        dialog.show(getFragmentManager(), "error_dialog");
+
+    }
+
+    private Movie getMovieDetails(String jsonData) {
+        return null;
     }
 
     private boolean isNetworkAvailable() {

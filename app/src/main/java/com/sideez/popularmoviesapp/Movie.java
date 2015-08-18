@@ -6,7 +6,7 @@ package com.sideez.popularmoviesapp;
 /**
  * Created by sideez on 2015-08-13.
  */
-public class Movies {
+public class Movie {
     private String mTitle;
     private String mOverview;
     private String mPoster;
