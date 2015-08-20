@@ -5,5 +5,6 @@
     <string name="error_dialog_title">Oops! Sorry!</string>
     <string name="error_dialog_msg">There was an error. Please try again!</string>
     <string name="error_dialog_button">OK</string>
+    <string name="poster_image_desc">Movie poster</string>
 
 </resources>

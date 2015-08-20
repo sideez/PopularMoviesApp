@@ -2,13 +2,15 @@
  * Copyright (c) 2015. Sideez Inc.
  */
 
-package com.sideez.popularmoviesapp;
+package com.sideez.popularmoviesapp.ui;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
+
+import com.sideez.popularmoviesapp.R;
 
 /**
  * Created by sideez on 2015-08-18.

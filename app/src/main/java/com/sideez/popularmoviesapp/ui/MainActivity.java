@@ -1,4 +1,9 @@
-package com.sideez.popularmoviesapp;
+
+/*
+ * Copyright (c) 2015. Sideez Inc.
+ */
+
+package com.sideez.popularmoviesapp.ui;
 
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -9,11 +14,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.sideez.popularmoviesapp.moviedb.Movie;
+import com.sideez.popularmoviesapp.R;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -21,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private Movie mMovie;
+    private Movie[] mMovies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +69,12 @@ public class MainActivity extends AppCompatActivity {
                         String jsonData = response.body().string();
                         Log.v(TAG, jsonData);
                         if (response.isSuccessful()) {
-                            mMovie = getMovieDetails(jsonData);
+                            mMovies = getMovieDetails(jsonData);
                         } else {
                             alertUserAboutError();
                         }
 
-                    } catch (IOException e) {
+                    } catch (IOException | JSONException e) {
                         Log.e(TAG, "Exception caught: ", e);
                     }
 
@@ -81,8 +92,29 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private Movie getMovieDetails(String jsonData) {
-        return null;
+    private Movie[] getMovieDetails(String jsonData) throws JSONException {
+
+        JSONObject data = new JSONObject(jsonData);
+        JSONArray results = data.getJSONArray("results");
+
+        Movie[] movies = new Movie[results.length()];
+
+        for (int i = 0; i < results.length(); i++) {
+            JSONObject jsonMovie = results.getJSONObject(i);
+
+            Movie movie = new Movie();
+            movie.setMovieID(jsonMovie.getInt("id"));
+            movie.setOverview(jsonMovie.getString("overview"));
+            movie.setPoster(jsonMovie.getString("poster_path"));
+            movie.setRating(jsonMovie.getDouble("vote_average"));
+            movie.setReleaseDate(jsonMovie.getString("release_date"));
+            movie.setTitle(jsonMovie.getString("original_title"));
+
+            movies[i] = movie;
+
+        }
+
+        return movies;
     }
 
     private boolean isNetworkAvailable() {
