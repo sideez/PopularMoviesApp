@@ -6,5 +6,22 @@
     <string name="error_dialog_msg">There was an error. Please try again!</string>
     <string name="error_dialog_button">OK</string>
     <string name="poster_image_desc">Movie poster</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="pref_sort_label">Sort Movies</string>
+    <string name="pref_sort_key" translatable="false">sort</string>
+    <string name="pref_sort_default" translatable="false">popularity.desc</string>
+    <string name="pref_sort_popular">popularity.desc</string>
+    <string name="pref_sort_rating">vote_average.desc</string>
+
+    <string-array name="pref_sort_list_titles">
+        <item>Popular Movies</item>
+        <item>Highest Rated</item>
+    </string-array>
+
+    <string-array name="pref_sort_list_values">
+        <item>@string/pref_sort_popular</item>
+        <item>@string/pref_sort_rating</item>
+    </string-array>
 
 </resources>

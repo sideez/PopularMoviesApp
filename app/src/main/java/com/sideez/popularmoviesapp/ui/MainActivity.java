@@ -5,9 +5,12 @@
 
 package com.sideez.popularmoviesapp.ui;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -48,8 +51,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+    }
 
-        String order = "popularity.desc";
+    private void fetchMovies(String order) {
 
         final String BASE_URL = "http://api.themoviedb.org/3/discover/movie?";
         final String QUERY_PARAM = "sort_by";
@@ -58,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         String movieDBURL = BASE_URL + QUERY_PARAM + "=" + order + "&" + API_QUERY_PARAM + "=" + API_KEY;
 
-        Log.i(TAG, "URL: " + movieDBURL);
+        Log.i(TAG, movieDBURL);
 
         if (isNetworkAvailable()) {
 
@@ -69,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             call.enqueue(new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
-
+                    alertUserAboutError();
                 }
 
                 @Override
@@ -77,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
 
                     try {
                         String jsonData = response.body().string();
-                        // Log.v(TAG, jsonData);
                         if (response.isSuccessful()) {
                             mMovies = getMovieDetails(jsonData);
                             runOnUiThread(new Runnable() {
@@ -98,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
             });
 
         }
-
     }
 
     private void updateDisplay() {
@@ -177,9 +179,27 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        updateMovies();
+
+    }
+
+    private void updateMovies() {
+        // Getting user location preference from settings
+        SharedPreferences sharedPref = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        String order = sharedPref.getString(getString(R.string.pref_sort_key),
+                getString(R.string.pref_sort_default));
+        fetchMovies(order);
+    }
+
 }
