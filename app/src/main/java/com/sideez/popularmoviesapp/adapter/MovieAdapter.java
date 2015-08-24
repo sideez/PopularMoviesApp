@@ -39,9 +39,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public void onBindViewHolder(MovieViewHolder holder, int position) {
         Picasso.with(holder.mPoster.getContext())
                 .load(mMovies[position].getPoster())
-                .placeholder(R.drawable.poster_not_found)
+                .placeholder(R.drawable.poster_loading)
                 .error(R.drawable.poster_not_found)
-                //.resize(540, 750)
+                .resize(540, 750)
                 .into(holder.mPoster);
     }
 

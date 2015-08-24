@@ -48,7 +48,7 @@ public class Movie {
     }
 
     public void setPoster(String poster) {
-        mPoster = "http://image.tmdb.org/t/p/w185" + poster;
+        mPoster = "http://image.tmdb.org/t/p/w500" + poster;
     }
 
     public double getRating() {
