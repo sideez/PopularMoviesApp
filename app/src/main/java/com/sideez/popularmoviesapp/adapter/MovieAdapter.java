@@ -15,6 +15,9 @@ import com.sideez.popularmoviesapp.R;
 import com.sideez.popularmoviesapp.moviedb.Movie;
 import com.squareup.picasso.Picasso;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by sideez on 2015-08-19.
  */
@@ -52,11 +55,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     public class MovieViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView mPoster;
+        @Bind(R.id.posterImageView) ImageView mPoster;
 
         public MovieViewHolder(View itemView) {
             super(itemView);
-            mPoster = (ImageView) itemView.findViewById(R.id.posterImageView);
+
+            ButterKnife.bind(this, itemView);
         }
 
     }

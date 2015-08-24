@@ -44,11 +44,11 @@ public class Movie {
     }
 
     public String getPoster() {
-        return mPoster;
+        return "http://image.tmdb.org/t/p/w500" + mPoster;
     }
 
     public void setPoster(String poster) {
-        mPoster = "http://image.tmdb.org/t/p/w500" + poster;
+        mPoster = poster;
     }
 
     public double getRating() {
