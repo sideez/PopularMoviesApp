@@ -4,35 +4,61 @@
 
 package com.sideez.popularmoviesapp.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.sideez.popularmoviesapp.R;
+import com.sideez.popularmoviesapp.moviedb.Movie;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by sideez on 2015-08-19.
  */
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
+    private Movie[] mMovies;
+    private Context mContext;
+
+    public MovieAdapter(Context context, Movie[] movies) {
+        mContext = context;
+        mMovies = movies;
+    }
+
     @Override
     public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.movie_poster_list, parent, false);
+        return new MovieViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
-
+        Picasso.with(holder.mPoster.getContext())
+                .load(mMovies[position].getPoster())
+                .placeholder(R.drawable.poster_not_found)
+                .error(R.drawable.poster_not_found)
+                //.resize(540, 750)
+                .into(holder.mPoster);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mMovies.length;
     }
 
     public class MovieViewHolder extends RecyclerView.ViewHolder {
 
+        public ImageView mPoster;
+
         public MovieViewHolder(View itemView) {
             super(itemView);
+            mPoster = (ImageView) itemView.findViewById(R.id.posterImageView);
         }
+
     }
 
 }

@@ -48,7 +48,7 @@ public class Movie {
     }
 
     public void setPoster(String poster) {
-        mPoster = poster;
+        mPoster = "http://image.tmdb.org/t/p/w185" + poster;
     }
 
     public double getRating() {
@@ -66,6 +66,8 @@ public class Movie {
     public void setReleaseDate(String releaseDate) {
         mReleaseDate = releaseDate;
     }
+
+    // Binding data for parcel
 
 //    @Override
 //    public int describeContents() {

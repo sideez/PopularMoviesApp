@@ -9,13 +9,16 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.sideez.popularmoviesapp.moviedb.Movie;
 import com.sideez.popularmoviesapp.R;
+import com.sideez.popularmoviesapp.adapter.MovieAdapter;
+import com.sideez.popularmoviesapp.moviedb.Movie;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
@@ -28,16 +31,23 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private Movie[] mMovies;
 
+    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ButterKnife.bind(this);
 
         String order = "popularity.desc";
 
@@ -67,9 +77,15 @@ public class MainActivity extends AppCompatActivity {
 
                     try {
                         String jsonData = response.body().string();
-                        Log.v(TAG, jsonData);
+                        // Log.v(TAG, jsonData);
                         if (response.isSuccessful()) {
                             mMovies = getMovieDetails(jsonData);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    updateDisplay();
+                                }
+                            });
                         } else {
                             alertUserAboutError();
                         }
@@ -83,6 +99,16 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    private void updateDisplay() {
+        MovieAdapter adapter = new MovieAdapter(this, mMovies);
+        mRecyclerView.setAdapter(adapter);
+
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
+        mRecyclerView.setLayoutManager(layoutManager);
+
+        mRecyclerView.setHasFixedSize(true);
     }
 
     private void alertUserAboutError() {
