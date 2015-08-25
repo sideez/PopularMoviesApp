@@ -27,7 +27,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     private Movie[] mMovies;
     private Context mContext;
-    private Movie mMovie;
 
     public MovieAdapter(Context context, Movie[] movies) {
         mContext = context;
@@ -44,14 +43,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
 
-        mMovie = mMovies[position];
-
         Picasso.with(holder.mPoster.getContext())
                 .load(mMovies[position].getPoster())
                 .placeholder(R.drawable.poster_loading)
                 .error(R.drawable.poster_not_found)
                 .resize(540, 750)
                 .into(holder.mPoster);
+
     }
 
     @Override
@@ -72,7 +70,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(mContext, MovieDetailsActivity.class);
-            intent.putExtra(Intent.EXTRA_TEXT, mMovie);
+            intent.putExtra(Intent.EXTRA_TEXT, mMovies[getAdapterPosition()]);
             mContext.startActivity(intent);
         }
     }

@@ -40,6 +40,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    public final static String STATE_MOVIES = "STATE_MOVIES";
 
     private Movie[] mMovies;
 
@@ -49,8 +50,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         ButterKnife.bind(this);
+
+        updateMovies();
+
+//        if (savedInstanceState != null) {
+//            mMovies = (Movie[]) savedInstanceState.getParcelableArray(STATE_MOVIES);
+//            updateDisplay();
+//        } else {
+//            updateMovies();
+//        }
     }
 
     private void fetchMovies(String order) {
@@ -161,6 +170,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+//    @Override
+//    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+//        super.onSaveInstanceState(outState, outPersistentState);
+//        outState.putParcelableArray(STATE_MOVIES, mMovies);
+//    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -184,15 +199,15 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        updateMovies();
-
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        updateMovies();
+//
+//    }
 
     private void updateMovies() {
-        // Getting user location preference from settings
+        // Getting user sort preference from settings
         SharedPreferences sharedPref = PreferenceManager
                 .getDefaultSharedPreferences(this);
         String order = sharedPref.getString(getString(R.string.pref_sort_key),
