@@ -1,18 +1,44 @@
 package com.sideez.popularmoviesapp.ui;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.sideez.popularmoviesapp.R;
+import com.sideez.popularmoviesapp.moviedb.Movie;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class MovieDetailsActivity extends AppCompatActivity {
+
+    private Movie mMovie;
+
+    @Bind(R.id.posterImageView) ImageView mPosterThumbnail;
+    @Bind(R.id.originalTitleTextView) TextView mTitle;
+    @Bind(R.id.releaseDateTextView) TextView mReleaseDate;
+    @Bind(R.id.ratingTextView) TextView mRating;
+    @Bind(R.id.overviewTextView) TextView mOverview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
+
+        Intent intent = getIntent();
+        mMovie = intent.getParcelableExtra(Intent.EXTRA_TEXT);
+
+        mTitle.setText(mMovie.getTitle());
+        mReleaseDate.setText(mMovie.getReleaseDate());
+        mRating.setText(mMovie.getRating());
+        mOverview.setText(mMovie.getOverview());
+
+        ButterKnife.bind(this);
+
     }
 
     @Override

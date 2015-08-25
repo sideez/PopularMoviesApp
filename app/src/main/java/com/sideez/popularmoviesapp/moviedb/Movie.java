@@ -54,8 +54,8 @@ public class Movie implements Parcelable {
         mPoster = poster;
     }
 
-    public double getRating() {
-        return mRating;
+    public String getRating() {
+        return mRating + "";
     }
 
     public void setRating(double rating) {

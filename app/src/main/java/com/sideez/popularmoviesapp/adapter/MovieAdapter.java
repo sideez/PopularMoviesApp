@@ -5,6 +5,7 @@
 package com.sideez.popularmoviesapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 
 import com.sideez.popularmoviesapp.R;
 import com.sideez.popularmoviesapp.moviedb.Movie;
+import com.sideez.popularmoviesapp.ui.MovieDetailsActivity;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
@@ -25,6 +27,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     private Movie[] mMovies;
     private Context mContext;
+    private Movie mMovie;
 
     public MovieAdapter(Context context, Movie[] movies) {
         mContext = context;
@@ -40,6 +43,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
+
+        mMovie = mMovies[position];
+
         Picasso.with(holder.mPoster.getContext())
                 .load(mMovies[position].getPoster())
                 .placeholder(R.drawable.poster_loading)
@@ -53,16 +59,22 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return mMovies.length;
     }
 
-    public class MovieViewHolder extends RecyclerView.ViewHolder {
+    public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @Bind(R.id.posterImageView) ImageView mPoster;
 
         public MovieViewHolder(View itemView) {
             super(itemView);
-
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(mContext, MovieDetailsActivity.class);
+            intent.putExtra(Intent.EXTRA_TEXT, mMovie);
+            mContext.startActivity(intent);
+        }
     }
 
 }
