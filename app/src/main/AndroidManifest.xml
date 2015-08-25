@@ -27,6 +27,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.sideez.popularmoviesapp.ui.MainActivity" />
         </activity>
+        <activity
+            android:name=".ui.MovieDetailsActivity"
+            android:label="@string/title_activity_movie_details"
+            android:parentActivityName=".ui.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sideez.popularmoviesapp.ui.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

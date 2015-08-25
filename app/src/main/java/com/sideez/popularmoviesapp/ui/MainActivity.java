@@ -62,8 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
         String movieDBURL = BASE_URL + QUERY_PARAM + "=" + order + "&" + API_QUERY_PARAM + "=" + API_KEY;
 
-        Log.i(TAG, movieDBURL);
-
         if (isNetworkAvailable()) {
 
             OkHttpClient client = new OkHttpClient();
