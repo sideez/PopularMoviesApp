@@ -52,14 +52,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        updateMovies();
-
-//        if (savedInstanceState != null) {
-//            mMovies = (Movie[]) savedInstanceState.getParcelableArray(STATE_MOVIES);
-//            updateDisplay();
-//        } else {
-//            updateMovies();
-//        }
+        if (savedInstanceState != null) {
+            mMovies = (Movie[]) savedInstanceState.getParcelableArray(STATE_MOVIES);
+            updateDisplay(mMovies);
+        } else {
+            updateMovies();
+        }
     }
 
     private void fetchMovies(String order) {
@@ -89,11 +87,12 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         String jsonData = response.body().string();
                         if (response.isSuccessful()) {
+//                            Log.i(TAG, "CALLING API");
                             mMovies = getMovieDetails(jsonData);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    updateDisplay();
+                                    updateDisplay(mMovies);
                                 }
                             });
                         } else {
@@ -110,14 +109,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void updateDisplay() {
-        MovieAdapter adapter = new MovieAdapter(this, mMovies);
+    private void updateDisplay(Movie[] movies) {
+
+//        Log.i(TAG, "CALLING ADAPTER");
+        MovieAdapter adapter = new MovieAdapter(this, movies);
         mRecyclerView.setAdapter(adapter);
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(layoutManager);
 
         mRecyclerView.setHasFixedSize(true);
+
     }
 
     private void alertUserAboutError() {
@@ -129,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Movie[] getMovieDetails(String jsonData) throws JSONException {
 
+//        Log.i(TAG, "SETTING DATA");
         JSONObject data = new JSONObject(jsonData);
         JSONArray results = data.getJSONArray("results");
 
@@ -170,21 +173,26 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    @Override
-//    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-//        super.onSaveInstanceState(outState, outPersistentState);
-//        outState.putParcelableArray(STATE_MOVIES, mMovies);
-//    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArray(STATE_MOVIES, mMovies);
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -194,25 +202,29 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
             return true;
+
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        updateMovies();
-//
-//    }
+    @Override
+    protected void onRestart() {
+
+        super.onRestart();
+        updateDisplay(mMovies);
+
+    }
 
     private void updateMovies() {
+
         // Getting user sort preference from settings
         SharedPreferences sharedPref = PreferenceManager
                 .getDefaultSharedPreferences(this);
         String order = sharedPref.getString(getString(R.string.pref_sort_key),
                 getString(R.string.pref_sort_default));
         fetchMovies(order);
+        
     }
 
 }
