@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -108,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
             });
 
         }
+
     }
 
     private void updateDisplay(Movie[] movies) {
@@ -172,7 +174,9 @@ public class MainActivity extends AppCompatActivity {
         if (networkInfo != null && networkInfo.isConnected()) {
             isAvailable = true;
         } else {
-            Toast.makeText(this, "Network unavailable!", Toast.LENGTH_LONG).show();
+            Toast toast = Toast.makeText(this, "Network unavailable!", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            toast.show();
         }
 
         return isAvailable;
@@ -215,11 +219,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onRestart() {
-
-        super.onRestart();
-        updateDisplay(mMovies);
-
+    protected void onStart() {
+        super.onStart();
+        updateMovies();
     }
 
     private void updateMovies() {
