@@ -16,9 +16,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sideez.popularmoviesapp.R;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private Movie[] mMovies;
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+    @Bind(R.id.errorTextView) TextView mErrorTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (isNetworkAvailable()) {
 
-            if (savedInstanceState != null) {
+            if (savedInstanceState != null && savedInstanceState.containsKey(STATE_MOVIES)) {
                 mMovies = (Movie[]) savedInstanceState.getParcelableArray(STATE_MOVIES);
-                updateDisplay(mMovies);
             } else {
                 updateMovies();
             }
@@ -92,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         String jsonData = response.body().string();
                         if (response.isSuccessful()) {
-//                            Log.i(TAG, "CALLING API");
                             mMovies = getMovieDetails(jsonData);
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -117,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateDisplay(Movie[] movies) {
 
-//        Log.i(TAG, "CALLING ADAPTER");
         MovieAdapter adapter = new MovieAdapter(this, movies);
         mRecyclerView.setAdapter(adapter);
 
@@ -142,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
 
     private Movie[] getMovieDetails(String jsonData) throws JSONException {
 
-//        Log.i(TAG, "SETTING DATA");
         JSONObject data = new JSONObject(jsonData);
         JSONArray results = data.getJSONArray("results");
 
@@ -177,9 +175,9 @@ public class MainActivity extends AppCompatActivity {
         if (networkInfo != null && networkInfo.isConnected()) {
             isAvailable = true;
         } else {
-            Toast toast = Toast.makeText(this, "Network unavailable!", Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-            toast.show();
+            Toast.makeText(this, "Network unavailable!", Toast.LENGTH_SHORT).show();
+            mErrorTextView.setText("Network Unavailable");
+            mErrorTextView.setVisibility(View.VISIBLE);
         }
 
         return isAvailable;
