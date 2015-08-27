@@ -54,11 +54,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        if (savedInstanceState != null) {
-            mMovies = (Movie[]) savedInstanceState.getParcelableArray(STATE_MOVIES);
-            updateDisplay(mMovies);
-        } else {
-            updateMovies();
+        if (isNetworkAvailable()) {
+
+            if (savedInstanceState != null) {
+                mMovies = (Movie[]) savedInstanceState.getParcelableArray(STATE_MOVIES);
+                updateDisplay(mMovies);
+            } else {
+                updateMovies();
+            }
         }
     }
 
@@ -222,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         updateMovies();
+
     }
 
     private void updateMovies() {
