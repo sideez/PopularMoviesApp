@@ -9,4 +9,14 @@
         android:layout_height="match_parent"
         android:id="@+id/recyclerView"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/errorTextView"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:visibility="gone"/>
+
 </RelativeLayout>
