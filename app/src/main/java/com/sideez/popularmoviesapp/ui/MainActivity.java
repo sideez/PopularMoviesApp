@@ -58,9 +58,14 @@ public class MainActivity extends AppCompatActivity {
 
         if (isNetworkAvailable()) {
 
+            Log.e(TAG, "onCreate called");
+
             if (savedInstanceState != null && savedInstanceState.containsKey(STATE_MOVIES)) {
+                Log.e(TAG, "Inside savedInstanceState if null statement");
                 mMovies = (Movie[]) savedInstanceState.getParcelableArray(STATE_MOVIES);
+                // updateDisplay(mMovies);
             } else {
+                Log.e(TAG, "Inside savedInstanceState else statement");
                 updateMovies();
             }
         }
@@ -93,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         String jsonData = response.body().string();
                         if (response.isSuccessful()) {
+//                            Log.e(TAG, "CALLING API");
                             mMovies = getMovieDetails(jsonData);
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -117,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateDisplay(Movie[] movies) {
 
+//        Log.e(TAG, "CALLING ADAPTER");
         MovieAdapter adapter = new MovieAdapter(this, movies);
         mRecyclerView.setAdapter(adapter);
 
@@ -141,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Movie[] getMovieDetails(String jsonData) throws JSONException {
 
+//        Log.e(TAG, "SETTING DATA");
         JSONObject data = new JSONObject(jsonData);
         JSONArray results = data.getJSONArray("results");
 
@@ -222,6 +230,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        Log.e(TAG, "onStart called");
         updateMovies();
 
     }
@@ -234,7 +243,43 @@ public class MainActivity extends AppCompatActivity {
         String order = sharedPref.getString(getString(R.string.pref_sort_key),
                 getString(R.string.pref_sort_default));
         fetchMovies(order);
-        
+
+    }
+
+    // ****** Test Code *******
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e(TAG, "onResume called");
+        Toast.makeText(this, "Calling onResume", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e(TAG, "onPause called");
+        Toast.makeText(this, "Calling onPause", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.e(TAG, "onStop called");
+        Toast.makeText(this, "Calling onStop", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.e(TAG, "onRestart called");
+        Toast.makeText(this, "Calling onRestart", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e(TAG, "onDestory called");
     }
 
 }
