@@ -185,6 +185,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        updateMovies();
+
+    }
+
+    private void updateMovies() {
+
+        // Getting user sort preference from settings
+        SharedPreferences sharedPref = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        String order = sharedPref.getString(getString(R.string.pref_sort_key),
+                getString(R.string.pref_sort_default));
+
+        if (order.equals(getString(R.string.pref_sort_favorite))) {
+            // TODO: Add code to fetch favorite movies from DB.
+        } else {
+            fetchMovies(order);
+        }
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
 
         super.onSaveInstanceState(outState);
@@ -217,24 +239,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        updateMovies();
-
-    }
-
-    private void updateMovies() {
-
-        // Getting user sort preference from settings
-        SharedPreferences sharedPref = PreferenceManager
-                .getDefaultSharedPreferences(this);
-        String order = sharedPref.getString(getString(R.string.pref_sort_key),
-                getString(R.string.pref_sort_default));
-        fetchMovies(order);
-        
     }
 
 }
