@@ -97,6 +97,22 @@
                     android:paddingTop="10dp"
                     android:textSize="15sp"
                     android:textStyle="italic"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fav_text_label"
+                    android:id="@+id/favTextLabel"
+                    android:paddingTop="25dp"
+                    android:textStyle="bold"
+                    android:textSize="15sp"/>
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fav_button"
+                    android:id="@+id/favButton"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -112,6 +128,49 @@
             android:paddingRight="15dp"
             android:paddingTop="15dp"
             android:textSize="15sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/trailer_lable"
+            android:id="@+id/trailerTextLabel"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="15dp"
+            android:layout_below="@+id/overviewTextView"/>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/trailersListView"
+            android:layout_below="@+id/trailerTextLabel"
+            android:paddingLeft="15dp"
+            android:paddingTop="15dp"
+            android:paddingRight="15dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reviews_label"
+            android:id="@+id/reviewsTextLabel"
+            android:layout_below="@+id/trailersListView"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:paddingLeft="15dp"
+            android:paddingTop="15dp"
+            android:paddingRight="15dp"/>
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/reviewsListView"
+            android:headerDividersEnabled="false"
+            android:layout_below="@+id/reviewsTextLabel"
+            android:paddingLeft="15dp"
+            android:paddingTop="15dp"
+            android:paddingRight="15dp"/>
     </RelativeLayout>
 
 </ScrollView>

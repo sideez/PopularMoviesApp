@@ -69,11 +69,11 @@ public class MainActivity extends AppCompatActivity {
     private void fetchMovies(String order) {
 
         final String BASE_URL = "http://api.themoviedb.org/3/discover/movie?";
-        final String QUERY_PARAM = "sort_by";
+        final String SORT_QUERY_PARAM = "sort_by";
         final String API_QUERY_PARAM = "api_key";
         final String API_KEY = getString(R.string.api_key);
 
-        String movieDBURL = BASE_URL + QUERY_PARAM + "=" + order + "&" + API_QUERY_PARAM + "=" + API_KEY;
+        String movieDBURL = BASE_URL + SORT_QUERY_PARAM + "=" + order + "&" + API_QUERY_PARAM + "=" + API_KEY;
 
         if (isNetworkAvailable()) {
 

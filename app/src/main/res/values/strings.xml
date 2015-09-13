@@ -29,5 +29,9 @@
     <string name="title_activity_movie_details">Movie Details</string>
     <string name="rating_label">Rating:</string>
     <string name="release_date_label">Release Date:</string>
+    <string name="fav_text_label">Mark as Favorite</string>
+    <string name="fav_button">Favorite</string>
+    <string name="trailer_lable">Trailers</string>
+    <string name="reviews_label">Reviews</string>
 
 </resources>
