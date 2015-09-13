@@ -13,15 +13,18 @@
     <string name="pref_sort_default" translatable="false">popularity.desc</string>
     <string name="pref_sort_popular">popularity.desc</string>
     <string name="pref_sort_rating">vote_average.desc</string>
+    <string name="pref_sort_favorite">favorite</string>
 
     <string-array name="pref_sort_list_titles">
         <item>Popular Movies</item>
         <item>Highest Rated</item>
+        <item>Favorite Movies</item>
     </string-array>
 
     <string-array name="pref_sort_list_values">
         <item>@string/pref_sort_popular</item>
         <item>@string/pref_sort_rating</item>
+        <item>@string/pref_sort_favorite</item>
     </string-array>
     <string name="title_activity_movie_details">Movie Details</string>
     <string name="rating_label">Rating:</string>
