@@ -136,7 +136,7 @@
             android:layout_below="@+id/overviewTextView"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:paddingTop="15dp"
+            android:paddingTop="25dp"
             android:text="@string/trailer_lable"
             android:textSize="15sp"
             android:textStyle="bold"/>
@@ -157,7 +157,7 @@
             android:layout_below="@+id/trailersListView"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:paddingTop="15dp"
+            android:paddingTop="25dp"
             android:text="@string/reviews_label"
             android:textSize="15sp"
             android:textStyle="bold"/>

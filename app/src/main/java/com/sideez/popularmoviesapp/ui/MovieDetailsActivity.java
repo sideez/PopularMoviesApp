@@ -3,11 +3,13 @@ package com.sideez.popularmoviesapp.ui;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -59,7 +61,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_details);
         ButterKnife.bind(this);
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         mMovie = intent.getParcelableExtra(Intent.EXTRA_TEXT);
 
         mTitle.setText(mMovie.getTitle());
@@ -74,6 +76,27 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         fetchMovieTrailers();
         fetchMovieReviews();
+
+        mTrailersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                final String TRAILER_BASE_URL = "https://www.youtube.com/watch?";
+                final String QUERY_PARAM = "v";
+                String trailerId = mMovieTrailers[position].getKey();
+
+                Uri trailerUrl = Uri.parse(TRAILER_BASE_URL).buildUpon()
+                        .appendQueryParameter(QUERY_PARAM, trailerId)
+                        .build();
+
+                Intent playIntent = new Intent();
+                playIntent.setAction(Intent.ACTION_VIEW);
+                playIntent.setData(trailerUrl);
+                if (playIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(playIntent);
+                }
+            }
+        });
     }
 
     private void fetchMovieReviews() {
