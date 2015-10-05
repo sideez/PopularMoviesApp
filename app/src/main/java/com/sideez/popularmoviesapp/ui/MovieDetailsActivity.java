@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -50,7 +49,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     @Bind(R.id.releaseDateTextView) TextView mReleaseDate;
     @Bind(R.id.ratingTextView) TextView mRating;
     @Bind(R.id.overviewTextView) TextView mOverview;
-    @Bind(R.id.favButton) Button mFavButton;
+    @Bind(R.id.favImageView) ImageView mFavourite;
     @Bind(R.id.trailersListView) ListView mTrailersListView;
     @Bind(R.id.reviewsListView) ListView mReviewsListView;
 

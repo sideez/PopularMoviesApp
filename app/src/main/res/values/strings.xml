@@ -35,5 +35,6 @@
     <string name="reviews_label">Reviews</string>
     <string name="play_icon_desc">playIcon</string>
     <string name="dash">-</string>
+    <string name="fav_icon_desc">favIcon</string>
 
 </resources>
