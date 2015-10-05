@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -17,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sideez.popularmoviesapp.R;
+import com.sideez.popularmoviesapp.adapter.ReviewAdapter;
+import com.sideez.popularmoviesapp.adapter.TrailerAdapter;
 import com.sideez.popularmoviesapp.moviedb.Movie;
 import com.sideez.popularmoviesapp.moviedb.MovieReview;
 import com.sideez.popularmoviesapp.moviedb.MovieTrailer;
@@ -85,8 +86,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
         String movieReviewUrl = "http://api.themoviedb.org/3/movie/"
                 + movieID + "/reviews" + "?" + API_KEY_QUARY_PRAM + "=" + API_KEY;
 
-        Log.i(TAG, movieReviewUrl);
-
         if (isNetworkAvailable()) {
 
             OkHttpClient client = new OkHttpClient();
@@ -126,7 +125,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     private void displayReviews(MovieReview[] movieReviews) {
-
+        ReviewAdapter adapter = new ReviewAdapter(this, movieReviews);
+        mReviewsListView.setAdapter(adapter);
+        setListViewHeightBasedOnChildren(mReviewsListView);
     }
 
     private MovieReview[] getMovieReviews(String jsonData) throws JSONException {
@@ -198,11 +199,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     private void displayTrailers(MovieTrailer[] movieTrailers) {
-
-        String[] daysOfTheWeek = {"Sunday", "Monday", "Tuesday"};
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, daysOfTheWeek);
+        TrailerAdapter adapter = new TrailerAdapter(this, movieTrailers);
         mTrailersListView.setAdapter(adapter);
         setListViewHeightBasedOnChildren(mTrailersListView);
     }

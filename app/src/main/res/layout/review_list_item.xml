@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2015. Sideez Inc.
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+                android:padding="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/reviewTextView"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="5dp"
+        android:textSize="15sp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ndashTextView"
+        android:layout_below="@+id/reviewTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="@string/dash"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        android:paddingLeft="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/authorTextView"
+        android:layout_below="@+id/reviewTextView"
+        android:layout_toRightOf="@+id/ndashTextView"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        android:paddingLeft="5dp"/>
+</RelativeLayout>

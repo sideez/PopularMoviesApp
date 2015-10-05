@@ -33,5 +33,7 @@
     <string name="fav_button">Favorite</string>
     <string name="trailer_lable">Trailers</string>
     <string name="reviews_label">Reviews</string>
+    <string name="play_icon_desc">playIcon</string>
+    <string name="dash">-</string>
 
 </resources>
