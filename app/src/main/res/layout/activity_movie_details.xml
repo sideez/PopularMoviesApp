@@ -112,7 +112,8 @@
                     android:id="@+id/favImageView"
                     android:src="@drawable/ic_star_border_black_24dp"
                     android:contentDescription="@string/fav_icon_desc"
-                    android:clickable="false"/>
+                    android:clickable="false"
+                    android:paddingTop="10dp"/>
             </LinearLayout>
 
         </LinearLayout>
